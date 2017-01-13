@@ -1,53 +1,17 @@
 package main
 
 import (
+	"HuarongPuzzle/models"
 	"fmt"
-	"os"
-	"unsafe"
 )
 
-//var I chan []byte
-
 func main() {
-	gamelogo()
-	b := make([]byte, 100)
-	f := os.Stdin
-	w := os.Stdout
-	defer f.Close()
-	defer w.Close()
-	for {
-		w.WriteString("input:")
-		c, err := f.Read(b)
-		if err != nil {
-			continue
-		}
-		bb := b[:c-2]
-		b = make([]byte, 100)
-		str := *(*string)(unsafe.Pointer(&bb))
-		fmt.Println(str)
-		if str == "exit" {
-			break
-		}
+	models.DataInit()
+	for i := 0; i < 10; i++ {
+		fmt.Println(models.Checkerboard[i*8 : (i+1)*8])
 	}
+	// for _, v := range models.Checkerboard {
+
+	// }
 
 }
-
-func gamelogo() {
-	fmt.Println("***********************************************************************************")
-	fmt.Println("*      **    **  **    **     **       ******     ****    ****      **   ******   *")
-	fmt.Println("*     **    **  **    **   **  **     **    **  **   **  ** **     **  **         *")
-	fmt.Println("*    ********  **    **  **    **    **    **  **   **  **   **   **  **  *****   *")
-	fmt.Println("*   **    **   **   **  *********   **  ***   **   **  **     ** **  **     **    *")
-	fmt.Println("*  **    **     ****   **      **  **    **    ****   **      ****     *****      *")
-	fmt.Println("*                                                                                 *")
-	fmt.Println("*      *****     **    **                                                                    *")
-	fmt.Println("*     **    **  **    **                                                           *")
-	fmt.Println("*    **    **  **    **                                                          *")
-	fmt.Println("*   ******    **   **                                                         *")
-	fmt.Println("*  **          ****                                                        *")
-	fmt.Println("*************************************************************************")
-}
-
-// fun Handle(){
-
-// }
