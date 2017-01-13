@@ -6,13 +6,13 @@ import (
 )
 
 func init() {
-	fmt.Println(1)
+	models.PieceInit()
+	models.CheckerboardInit()
 
 }
 
 func main() {
-	models.PieceInit()
-	models.CheckerboardInit()
+
 	for i := 0; i < 10; i++ {
 		fmt.Println(models.Checkerboard[i*8 : (i+1)*8])
 	}

@@ -1,8 +1,6 @@
 package models
 
-import (
-	"fmt"
-)
+import ()
 
 const (
 	ROWLENGTH = 8
@@ -24,7 +22,6 @@ type Piece struct {
 }
 
 func init() {
-	fmt.Println(2)
 	Weight = 2
 	PersonTable = make([]*Piece, 12)
 	PersonTable[0] = &Piece{TypeName: "ZF", Name: []string{"张", "飞"}, PlaceStart: 0, Weight: 2, IsVertical: 1}
