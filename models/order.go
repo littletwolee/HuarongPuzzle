@@ -3,6 +3,7 @@ package models
 import (
 	"HuarongPuzzle/constant"
 	"errors"
+	//"fmt"
 	"strings"
 )
 
@@ -37,7 +38,7 @@ func (o *Order) CheckCheckerboard(piece *Piece) error {
 		if o.Point_Start[0] < 0 {
 			return errors.New(constant.MAX_OUT)
 		}
-		if piece.Weight[1] == 2 {
+		if piece.Weight[0] == 2 {
 			o.Point_End = []int{o.Point_Start[0], o.Point_Start[1] + 2}
 		}
 	case constant.DOWN:
@@ -45,11 +46,11 @@ func (o *Order) CheckCheckerboard(piece *Piece) error {
 		if o.Point_Start[0] > 9 {
 			return errors.New(constant.MAX_OUT)
 		}
-		if piece.Weight[1] == 2 {
+		if piece.Weight[0] == 2 {
 			o.Point_End = []int{o.Point_Start[0], o.Point_Start[1] + 2}
 		}
 	}
-	if !IsNPoint(o.Point_Start) && !IsNPoint(o.Point_End) {
+	if !IsNPoint(o.Point_Start) || !IsNPoint(o.Point_End) {
 		return errors.New(constant.OTHER_PIECE)
 	}
 	return nil

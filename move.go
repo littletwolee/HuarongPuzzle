@@ -63,6 +63,7 @@ func pushpoint(o *models.Order, typenames []string) error {
 		for _, v := range models.PersonTable[typenames[0]].Places {
 			delete(nilarr, models.KeyFormat(v))
 		}
+
 		pushN(nilarr, o, typenames[1])
 	}
 	return nil
