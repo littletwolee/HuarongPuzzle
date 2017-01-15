@@ -10,7 +10,7 @@ const (
 
 var (
 	ZF, MC, GY, ZY, HZ, CC, B1, B2, B3, B4, N1, N2 *Piece
-	PersonTable                                    []*Piece
+	PersonTable                                    map[string]*Piece
 	Weight                                         int
 )
 
@@ -25,21 +25,21 @@ type Piece struct {
 
 func init() {
 	Weight = 2
-	PersonTable = make([]*Piece, 12)
-	PersonTable[0] = &Piece{TypeName: "ZF", Name: []string{"张", "飞"}, PlaceStart: []int{0, 0}, Weight: 2, IsVertical: 1}
-	PersonTable[1] = &Piece{TypeName: "HZ", Name: []string{"黄", "忠"}, PlaceStart: []int{0, 6}, Weight: 2, IsVertical: 1}
-	PersonTable[2] = &Piece{TypeName: "ZY", Name: []string{"赵", "云"}, PlaceStart: []int{4, 0}, Weight: 2, IsVertical: 1}
-	PersonTable[3] = &Piece{TypeName: "MC", Name: []string{"马", "超"}, PlaceStart: []int{4, 6}, Weight: 2, IsVertical: 1}
-	PersonTable[4] = &Piece{TypeName: "GY", Name: []string{"关", "羽"}, PlaceStart: []int{4, 2}, Weight: 2, IsVertical: 0}
-	PersonTable[5] = &Piece{TypeName: "CC", Name: []string{"曹", "操"}, PlaceStart: []int{0, 2}, Weight: 2, IsVertical: 2}
+	PersonTable = make(map[string]*Piece, 12)
+	PersonTable["ZF"] = &Piece{Name: []string{"张", "飞"}, PlaceStart: []int{0, 0}, Weight: 2, IsVertical: 1}
+	PersonTable["HZ"] = &Piece{Name: []string{"黄", "忠"}, PlaceStart: []int{0, 6}, Weight: 2, IsVertical: 1}
+	PersonTable["ZY"] = &Piece{Name: []string{"赵", "云"}, PlaceStart: []int{4, 0}, Weight: 2, IsVertical: 1}
+	PersonTable["MC"] = &Piece{Name: []string{"马", "超"}, PlaceStart: []int{4, 6}, Weight: 2, IsVertical: 1}
+	PersonTable["GY"] = &Piece{Name: []string{"关", "羽"}, PlaceStart: []int{4, 2}, Weight: 2, IsVertical: 0}
+	PersonTable["CC"] = &Piece{Name: []string{"曹", "操"}, PlaceStart: []int{0, 2}, Weight: 2, IsVertical: 2}
 
-	PersonTable[6] = &Piece{TypeName: "B1", Name: []string{"士", "1"}, PlaceStart: []int{6, 2}, Weight: 1, IsVertical: 2}
-	PersonTable[7] = &Piece{TypeName: "B2", Name: []string{"士", "2"}, PlaceStart: []int{6, 4}, Weight: 1, IsVertical: 2}
-	PersonTable[8] = &Piece{TypeName: "B3", Name: []string{"士", "3"}, PlaceStart: []int{8, 0}, Weight: 1, IsVertical: 2}
-	PersonTable[9] = &Piece{TypeName: "B4", Name: []string{"士", "4"}, PlaceStart: []int{8, 6}, Weight: 1, IsVertical: 2}
+	PersonTable["B1"] = &Piece{Name: []string{"士", "一"}, PlaceStart: []int{6, 2}, Weight: 1, IsVertical: 2}
+	PersonTable["B2"] = &Piece{Name: []string{"士", "二"}, PlaceStart: []int{6, 4}, Weight: 1, IsVertical: 2}
+	PersonTable["B3"] = &Piece{Name: []string{"士", "三"}, PlaceStart: []int{8, 0}, Weight: 1, IsVertical: 2}
+	PersonTable["B4"] = &Piece{Name: []string{"士", "四"}, PlaceStart: []int{8, 6}, Weight: 1, IsVertical: 2}
 
-	PersonTable[10] = &Piece{TypeName: "N1", Name: []string{"  ", "  "}, PlaceStart: []int{8, 2}, Weight: 1, IsVertical: 2}
-	PersonTable[11] = &Piece{TypeName: "N2", Name: []string{"  ", "  "}, PlaceStart: []int{8, 4}, Weight: 1, IsVertical: 2}
+	PersonTable["N1"] = &Piece{Name: []string{"  ", "  "}, PlaceStart: []int{8, 2}, Weight: 1, IsVertical: 2}
+	PersonTable["N2"] = &Piece{Name: []string{"  ", "  "}, PlaceStart: []int{8, 4}, Weight: 1, IsVertical: 2}
 }
 
 func PieceInit() {

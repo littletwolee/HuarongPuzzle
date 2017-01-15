@@ -16,12 +16,12 @@ func init() {
 }
 
 func CheckerboardInit() {
-	for _, v := range PersonTable {
+	for t, v := range PersonTable {
 		func(p *Piece) {
 			if v.Places != nil {
 				l := len(v.Places)
 				for k, n := range v.Places {
-					c := Checkerboard{TypeName: p.TypeName}
+					c := Checkerboard{TypeName: t}
 					switch k {
 					case 0:
 						c.Name = p.Name[0]
