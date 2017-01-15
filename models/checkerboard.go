@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-var Checkerboards map[string]Checkerboard
+var Checkerboards map[string]interface{}
 
 type Checkerboard struct {
 	TypeName string
@@ -12,33 +12,40 @@ type Checkerboard struct {
 }
 
 func init() {
-	Checkerboards = make(map[string]Checkerboard, 80)
+	Checkerboards = make(map[string]interface{}, 80)
 }
 
-func CheckerboardInit() {
+func CheckerboardInit(typename string, pieces *Piece) {
+	if pieces != nil {
+		pushCheckerBoard(typename, pieces)
+	}
 	for t, v := range PersonTable {
-		func(p *Piece) {
-			if v.Places != nil {
-				l := len(v.Places)
-				for k, n := range v.Places {
-					c := Checkerboard{TypeName: t}
-					switch k {
-					case 0:
-						c.Name = p.Name[0]
-					case l - 1:
-						c.Name = p.Name[1]
-					default:
-						c.Name = "  "
-					}
-					Checkerboards[fmt.Sprintf("%s%s", n[0], n[1])] = c
-				}
-			}
-
-		}(v)
+		pushCheckerBoard(t, v)
 	}
 }
 
-func format(arr []int) string {
+func pushCheckerBoard(t string, v *Piece) {
+	func(p *Piece) {
+		if v.Places != nil {
+			l := len(v.Places)
+			for k, n := range v.Places {
+				c := Checkerboard{TypeName: t}
+				switch k {
+				case 0:
+					c.Name = p.Name[0]
+				case l - 1:
+					c.Name = p.Name[1]
+				default:
+					c.Name = "  "
+				}
+				Checkerboards[KeyFormat(n)] = c
+			}
+		}
+
+	}(v)
+}
+
+func KeyFormat(arr []int) string {
 	str := ""
 	for _, v := range arr {
 		if v < 10 {
