@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	termbox "github.com/nsf/termbox-go"
 	// "os"
 	// "unsafe"
 )
@@ -28,29 +27,6 @@ func LogoInit() {
 	// 		break
 	// 	}
 	// }
-	err := termbox.Init()
-	if err != nil {
-		panic(err)
-	}
-	defer termbox.Close()
-
-Loop:
-	for {
-		switch ev := termbox.PollEvent(); ev.Type {
-		case termbox.EventKey:
-			switch ev.Key {
-			case termbox.KeyArrowUp:
-				fmt.Println("You press 1")
-			case termbox.KeyArrowDown:
-				fmt.Println("You press F1")
-
-			default:
-				fmt.Println(ev.Key)
-				//break Loop
-				break Loop
-			}
-		}
-	}
 }
 
 func gamelogo() {

@@ -1,8 +1,8 @@
 package constant
 
 const (
-	LEFT = iota
-	RIGHT
-	UP
-	DOWN
+	LEFT  = "L"
+	RIGHT = "R"
+	UP    = "U"
+	DOWN  = "D"
 )

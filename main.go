@@ -1,75 +1,78 @@
 package main
 
 import (
-	//"HuarongPuzzle/constant"
+	"HuarongPuzzle/constant"
 	"HuarongPuzzle/models"
-	//"fmt"
+	"fmt"
+	//"github.com/mattn/go-runewidth"
+	"github.com/qianlnk/terminal"
+	// "os"
+	"strings"
+	// "unsafe"
+)
+
+var (
+	CmdFlag bool
+	Term    *terminal.Terminal
 )
 
 func init() {
+	CmdFlag = false
 	models.PieceInit()
 	models.CheckerboardInit("", nil)
-
+	models.DisplayInit()
 }
 
 func main() {
-	// for i := 0; i < 10; i++ {
-	// 	var str string
-	// 	for j := 0; j < 8; j++ {
-	// 		str += models.Checkerboards[models.KeyFormat([]int{i, j})].(models.Checkerboard).Name
-	// 	}
-	// 	fmt.Println(str)
+Loop:
+	for {
+		cmd := getorder()
+		switch cmd {
+		case "H":
+			models.DisplayHelp()
+			continue
+		case "EXIT":
+			break Loop
+		case "":
+			fmt.Println(constant.ERR_INPUT_EMPTY)
+			continue
+		default:
+			o := models.GetOrder()
+			switch {
+			case !CmdFlag && models.CMDInfo["Persons"][cmd] != "":
+				o.TypeName = cmd
+			case CmdFlag && models.CMDInfo["Moves"][cmd] != "":
+				fmt.Println("")
+				o.Order = cmd
+				err := Move()
+				if err != nil {
+					fmt.Println(err)
+				}
+				models.DisplayCheckerboard()
+			default:
+				if !CmdFlag {
+					fmt.Println(constant.ERR_INPUT_GENERALS)
+				} else {
+					fmt.Println(constant.ERR_INPUT_CMD)
+				}
+				continue
+			}
+			CmdFlag = !CmdFlag
+			fmt.Println("")
+		}
+	}
+}
 
-	// }
-	// err := Move("B3", constant.DOWN)
-	// if err != nil {
-	// 	fmt.Println(err)
-	// 	return
-	// } else {
-	// 	for i := 0; i < 10; i++ {
-	// 		var str string
-	// 		for j := 0; j < 8; j++ {
-	// 			str += models.Checkerboards[models.KeyFormat([]int{i, j})].(models.Checkerboard).Name
-	// 		}
-	// 		fmt.Println(str)
-	// 	}
-	// }
-	LogoInit()
-	// err = Move("B2", constant.DOWN)
-	// if err != nil {
-	// 	fmt.Println(err)
-	// } else {
-	// 	for i := 0; i < 10; i++ {
-	// 		var str string
-	// 		for j := 0; j < 8; j++ {
-	// 			str += models.Checkerboards[models.KeyFormat([]int{i, j})].(models.Checkerboard).Name
-	// 		}
-	// 		fmt.Println(str)
-	// 	}
-	// }
-	// err = Move("GY", constant.DOWN)
-	// if err != nil {
-	// 	fmt.Println(err)
-	// } else {
-	// 	for i := 0; i < 10; i++ {
-	// 		var str string
-	// 		for j := 0; j < 8; j++ {
-	// 			str += models.Checkerboards[models.KeyFormat([]int{i, j})].(models.Checkerboard).Name
-	// 		}
-	// 		fmt.Println(str)
-	// 	}
-	// }
-	// err = Move("GY", constant.DOWN)
-	// if err != nil {
-	// 	fmt.Println(err)
-	// } else {
-	// 	for i := 0; i < 10; i++ {
-	// 		var str string
-	// 		for j := 0; j < 8; j++ {
-	// 			str += models.Checkerboards[models.KeyFormat([]int{i, j})].(models.Checkerboard).Name
-	// 		}
-	// 		fmt.Println(str)
-	// 	}
-	// }
+func getorder() string {
 
+	if Term == nil {
+		Term = terminal.NewTerminal(">")
+		Term.SetSystemCommand(models.CMDList)
+	}
+	if !CmdFlag {
+		fmt.Printf("Input Generals Shorthand > ")
+	} else {
+		fmt.Printf("Input cmd order > ")
+	}
+	return strings.ToUpper(Term.GetCommand())
 }

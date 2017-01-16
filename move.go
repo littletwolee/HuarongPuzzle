@@ -7,11 +7,9 @@ import (
 	"strings"
 )
 
-func Move(typename string, order int) error {
-	typename = strings.ToUpper(typename)
-	o := &models.Order{Order: order}
-	o.Piece = models.PersonTable[typename]
-	o.TypeName = typename
+func Move() error {
+	o := models.GetOrder()
+	o.Piece = models.PersonTable[o.TypeName]
 	err := o.CheckCheckerboard(o.Piece)
 	if err != nil {
 		return err

@@ -30,10 +30,10 @@ func init() {
 	PersonTable["GY"] = &Piece{Name: []string{"关", "羽"}, PlaceStart: []int{4, 2}, Weight: []int{2, 1}}
 	PersonTable["CC"] = &Piece{Name: []string{"曹", "操"}, PlaceStart: []int{0, 2}, Weight: []int{2, 2}}
 
-	PersonTable["B1"] = &Piece{Name: []string{"士", "一"}, PlaceStart: []int{6, 2}, Weight: []int{1, 1}}
-	PersonTable["B2"] = &Piece{Name: []string{"士", "二"}, PlaceStart: []int{6, 4}, Weight: []int{1, 1}}
-	PersonTable["B3"] = &Piece{Name: []string{"士", "三"}, PlaceStart: []int{8, 0}, Weight: []int{1, 1}}
-	PersonTable["B4"] = &Piece{Name: []string{"士", "四"}, PlaceStart: []int{8, 6}, Weight: []int{1, 1}}
+	PersonTable["B1"] = &Piece{Name: []string{"兵", "一"}, PlaceStart: []int{6, 2}, Weight: []int{1, 1}}
+	PersonTable["B2"] = &Piece{Name: []string{"兵", "二"}, PlaceStart: []int{6, 4}, Weight: []int{1, 1}}
+	PersonTable["B3"] = &Piece{Name: []string{"兵", "三"}, PlaceStart: []int{8, 0}, Weight: []int{1, 1}}
+	PersonTable["B4"] = &Piece{Name: []string{"兵", "四"}, PlaceStart: []int{8, 6}, Weight: []int{1, 1}}
 
 	PersonTable["N1"] = &Piece{Name: []string{"  ", "  "}, PlaceStart: []int{8, 2}, Weight: []int{1, 1}}
 	PersonTable["N2"] = &Piece{Name: []string{"  ", "  "}, PlaceStart: []int{8, 4}, Weight: []int{1, 1}}
