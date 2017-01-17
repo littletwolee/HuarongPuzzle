@@ -7,27 +7,27 @@ import (
 	"strings"
 )
 
-func Move() error {
-	o := models.GetOrder()
+func Move(o *models.Order) error {
 	o.Piece = models.PersonTable[o.TypeName]
 	err := o.CheckCheckerboard(o.Piece)
 	if err != nil {
 		return err
 	}
 	o.Piece.PlaceStart = o.Point_Start
-	err = pointNil(o)
+	err = pushpointNil(o)
 	if err != nil {
 		return err
 	}
 	return nil
 }
 
-func pointNil(o *models.Order) error {
+func pushpointNil(o *models.Order) error {
 	typenames := []string{o.TypeName}
-	if len(o.Point_End) > 0 {
+	// fmt.Println(o.Point_Nil_End)
+	if len(o.Point_Nil_End) > 0 {
 		typenames = append(typenames, "N1", "N2")
 	} else {
-		typenames = append(typenames, models.Checkerboards[models.KeyFormat(o.Point_Start)].(models.Checkerboard).TypeName)
+		typenames = append(typenames, models.Checkerboards[models.KeyFormat(o.Point_Nil_Start)].(models.Checkerboard).TypeName)
 	}
 	for _, n := range typenames {
 		piece := models.PersonTable[n]
@@ -78,7 +78,9 @@ func pushN(arr map[string][]int, o *models.Order, typename string) {
 			s = v
 		}
 	}
+
 	models.PersonTable[typename].PlaceStart = s
 	models.PersonTable[typename].Places = models.PushData(models.PersonTable[typename])
+	//fmt.Println(typename)
 	models.CheckerboardInit(typename, models.PersonTable[typename])
 }

@@ -30,8 +30,9 @@ func DisplayInit() {
 	Moves["L"] = "Move Left"
 	Moves["R"] = "Move Right"
 	CMDInfo["Moves"] = Moves
-	Cmds := make(map[string]string, 2)
+	Cmds := make(map[string]string, 3)
 	Cmds["H"] = "Game help"
+	Cmds["N"] = "Start a new game"
 	Cmds["EXIT"] = "Exit game"
 	CMDInfo["Cmds"] = Cmds
 	Helps = []string{}
@@ -45,9 +46,16 @@ func DisplayInit() {
 	}
 	Helps = append(Helps, "\n")
 	DisplayCheckerboard()
-	DisplayHelp()
+	DisplayHelpFirst()
 }
 
+func DisplayHelpFirst() {
+	fmt.Println("")
+	fmt.Println("")
+	fmt.Println("      H - Game help")
+	fmt.Println("")
+	fmt.Println("")
+}
 func DisplayHelp() {
 	for _, v := range Helps {
 		fmt.Println(v)

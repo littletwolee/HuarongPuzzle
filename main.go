@@ -11,6 +11,7 @@ import (
 var (
 	CmdFlag bool
 	Term    *terminal.Terminal
+	O       *models.Order
 )
 
 func init() {
@@ -28,24 +29,36 @@ Loop:
 		case "H":
 			models.DisplayHelp()
 			continue
+		case "N":
+			models.NewGame()
+			CmdFlag = false
+			fmt.Println("")
+			models.PieceInit()
+			models.CheckerboardInit("", nil)
+			models.DisplayInit()
+			models.FileDelete("data")
 		case "EXIT":
 			break Loop
 		case "":
 			fmt.Println(constant.ERR_INPUT_EMPTY)
 			continue
 		default:
-			o := models.GetOrder()
 			switch {
 			case !CmdFlag && models.CMDInfo["Persons"][cmd] != "":
-				o.TypeName = cmd
+				O = &models.Order{TypeName: cmd}
 			case CmdFlag && models.CMDInfo["Moves"][cmd] != "":
 				fmt.Println("")
-				o.Order = cmd
-				err := Move()
+				O.Order = cmd
+				err := Move(O)
 				if err != nil {
 					fmt.Println(err)
 				}
 				models.DisplayCheckerboard()
+				if models.SuccessCheckerboard() {
+					fmt.Println(constant.SUCCESS)
+					models.FileDelete("data")
+					break Loop
+				}
 			default:
 				if !CmdFlag {
 					fmt.Println(constant.ERR_INPUT_GENERALS)
@@ -67,9 +80,9 @@ func getorder() string {
 		Term.SetSystemCommand(models.CMDList)
 	}
 	if !CmdFlag {
-		fmt.Printf("Input Generals Shorthand > ")
+		fmt.Printf(constant.INPUT_GENERALS)
 	} else {
-		fmt.Printf("Input cmd order > ")
+		fmt.Printf(constant.INPUT_CMDS)
 	}
 	return strings.ToUpper(Term.GetCommand())
 }

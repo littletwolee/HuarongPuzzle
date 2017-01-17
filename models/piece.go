@@ -10,6 +10,7 @@ var (
 	ZF, MC, GY, ZY, HZ, CC, B1, B2, B3, B4, N1, N2 *Piece
 	PersonTable                                    map[string]*Piece
 	Weight                                         int
+	SuccessPiece                                   []int
 )
 
 type Piece struct {
@@ -23,6 +24,13 @@ type Piece struct {
 func init() {
 	Weight = 2
 	PersonTable = make(map[string]*Piece, 12)
+	err := FileRead("data")
+	if err != nil {
+		NewGame()
+	}
+	SuccessPiece = []int{6, 2}
+}
+func NewGame() {
 	PersonTable["ZF"] = &Piece{Name: []string{"张", "飞"}, PlaceStart: []int{0, 0}, Weight: []int{1, 2}}
 	PersonTable["HZ"] = &Piece{Name: []string{"黄", "忠"}, PlaceStart: []int{0, 6}, Weight: []int{1, 2}}
 	PersonTable["ZY"] = &Piece{Name: []string{"赵", "云"}, PlaceStart: []int{4, 0}, Weight: []int{1, 2}}
@@ -38,7 +46,6 @@ func init() {
 	PersonTable["N1"] = &Piece{Name: []string{"  ", "  "}, PlaceStart: []int{8, 2}, Weight: []int{1, 1}}
 	PersonTable["N2"] = &Piece{Name: []string{"  ", "  "}, PlaceStart: []int{8, 4}, Weight: []int{1, 1}}
 }
-
 func PieceInit() {
 	for _, v := range PersonTable {
 		v.Places = PushData(v)
