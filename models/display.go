@@ -5,7 +5,6 @@ import (
 )
 
 var (
-	CMDList []string
 	CMDInfo map[string]map[string]string
 	Helps   []string
 )
@@ -41,7 +40,6 @@ func DisplayInit() {
 		Helps = append(Helps, fmt.Sprintf("    %s -", t))
 		for k, v := range vs {
 			Helps = append(Helps, fmt.Sprintf("      %s - %s", k, v))
-			CMDList = append(CMDList, k)
 		}
 	}
 	Helps = append(Helps, "\n")

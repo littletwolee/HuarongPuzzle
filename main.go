@@ -4,13 +4,11 @@ import (
 	"HuarongPuzzle/constant"
 	"HuarongPuzzle/models"
 	"fmt"
-	"github.com/qianlnk/terminal"
 	"strings"
 )
 
 var (
 	CmdFlag bool
-	Term    *terminal.Terminal
 	O       *models.Order
 )
 
@@ -74,15 +72,12 @@ Loop:
 }
 
 func getorder() string {
-
-	if Term == nil {
-		Term = terminal.NewTerminal(">")
-		Term.SetSystemCommand(models.CMDList)
-	}
+	var cmd string
 	if !CmdFlag {
 		fmt.Printf(constant.INPUT_GENERALS)
 	} else {
 		fmt.Printf(constant.INPUT_CMDS)
 	}
-	return strings.ToUpper(Term.GetCommand())
+	fmt.Scanf("%s", &cmd)
+	return strings.ToUpper(cmd)
 }
